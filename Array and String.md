@@ -26,3 +26,53 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
                     left += 1
         return res
 ```
+
+## 73.矩阵置零
+**解题思路**：首先，我们遍历矩阵的第一行和第一列，查找是否存在0。如果矩阵的第一行或第一列上有0，则将对应的row0_flag和col0_flag标志位设置为True。其次，我们将除第一行和第一列以外的元素遍历两次，第一次遍历时将需要清零的行和列的首个元素设置为0。第二次遍历时，如果当前元素所在行或列的首个元素为0，则将当前元素设置为0。最后，我们检查row0_flag和col0_flag标志位，并将矩阵的第一行和第一列置为0（如果有需要）。
+```Python
+def setZeroes(self, matrix: List[List[int]]) -> None:
+    """
+    Do not return anything, modify matrix in-place instead.
+    """
+    row = len(matrix)  # 获取矩阵的行数
+    col = len(matrix[0])  # 获取矩阵的列数
+    row0_flag = False  # 标记第一行是否有0
+    col0_flag = False  # 标记第一列是否有0
+
+    # 找第一行是否有0
+    for j in range(col):
+        if matrix[0][j] == 0:
+            row0_flag = True
+            break
+
+    # 第一列是否有0
+    for i in range(row):
+        if matrix[i][0] == 0:
+            col0_flag = True
+            break
+
+    # 把第一行或者第一列作为 标志位
+    for i in range(1, row):
+        for j in range(1, col):
+            if matrix[i][j] == 0:
+                matrix[i][0] = matrix[0][j] = 0
+                # 如果matrix[i][j]为0，则将第i行第一个元素和第j列第一个元素都置为0
+
+    # 置0
+    for i in range(1, row):
+        for j in range(1, col):
+            if matrix[i][0] == 0 or matrix[0][j] == 0:
+                matrix[i][j] = 0
+                # 如果第i行第一个元素或第j列第一个元素为0，则将当前元素设置为0
+
+    # 处理第一行和第一列
+    if row0_flag:
+        for j in range(col):
+            matrix[0][j] = 0
+            # 如果第一行中存在0，则将第一行全部置为0
+    if col0_flag:
+        for i in range(row):
+            matrix[i][0] = 0
+            # 如果第一列中存在0，则将第一列全部置为0
+
+```
