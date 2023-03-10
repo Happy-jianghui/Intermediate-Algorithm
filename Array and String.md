@@ -136,3 +136,18 @@ def longestPalindrome(self, s: str) -> str:
                 r += 1
         return res
 ```
+
+## 334.递增的三元子序列
+**解题思路**：给定的整数列表中查找是否存在一个递增的长度为3的子序列
+```Python
+def increasingTriplet(self, nums: List[int]) -> bool:
+        one = two = float('inf')
+        for three in nums:
+            if three > two:
+                return True
+            elif three <= one:
+                one = three
+            else:
+                two = three
+        return False
+```
