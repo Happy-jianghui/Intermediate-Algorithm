@@ -107,3 +107,32 @@ def lengthOfLongestSubstring(self, s: str) -> int:
             ans = max(ans, len(queue))
         return ans
 ```
+
+## 5.最长回文子串
+**解题思路**：中心扩散法，枚举所有可能的回文中心。分别以回文中心为起点向左右两边扩展，并记录得到的回文子串。遍历所有可能的回文中心，并使用上述方法找到以该中心为起点的最长回文子串。返回最长的回文子串。
+```Python
+def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        max_len = 0
+        res = ""
+        # 枚举所有可能的回文中心
+        for i in range(n):
+            # 回文中心是单个字符
+            l, r = i, i
+            while l >= 0 and r < n and s[l] == s[r]:
+                if r - l + 1 > max_len:
+                    max_len = r - l + 1
+                    res = s[l:r+1]
+                l -= 1
+                r += 1
+            
+            # 回文中心是两个字符
+            l, r = i, i+1
+            while l >= 0 and r < n and s[l] == s[r]:
+                if r - l + 1 > max_len:
+                    max_len = r - l + 1
+                    res = s[l:r+1]
+                l -= 1
+                r += 1
+        return res
+```
