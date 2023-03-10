@@ -76,3 +76,34 @@ def setZeroes(self, matrix: List[List[int]]) -> None:
             # 如果第一列中存在0，则将第一列全部置为0
 
 ```
+
+## 49.字母异位词分组
+**解题思路**：利用哈希表，保存每个字符串的字符出限次数，并将具有相同的字符计数的的字符串归为一组
+```Python
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        hash = {}
+        for s in strs:
+            #对字符串进行排序，得到排序后的字符串
+            sorted_s = ''.join(sorted(s))
+            if sorted_s not in hash:
+                hash[sorted_s] = [s]
+            else:
+                hash[sorted_s].append(s)
+        return list(hash.values())
+```
+
+## 3.无重复字符的最长子串
+**解题思路**：使用队列和哈希集合，遍历给定字符串 ss，并计算最长无重复字符子串的长度。
+```Python
+def lengthOfLongestSubstring(self, s: str) -> int:
+        hash = set()
+        queue = collections.deque()
+        ans = 0
+        for i in s:
+            while i in hash:
+                hash.remove(queue.popleft())
+            queue.append(i)
+            hash.add(i)
+            ans = max(ans, len(queue))
+        return ans
+```
