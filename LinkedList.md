@@ -36,3 +36,15 @@ def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         odd_node.next = even_head
         return odd_head
 ```
+
+## 160.相交链表
+**解题思路**：同时遍历链表A和链表B，当遍历到链表末尾时，将指针指向另一个链表的头部，这样当两个链表长度差为 k 时，它们会同时到达交点。如果没有交点，两个指针最终都会指向 None，返回 None 即可。
+```Python
+def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        A, B = headA, headB
+
+        while A != B:
+            A = A.next if A else headB
+            B = B.next if B else headA
+        return A
+```
