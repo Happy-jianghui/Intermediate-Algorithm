@@ -98,7 +98,6 @@ def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
 
 ## 230.二叉搜索树中第k小的元素
 **解题思路**：中序遍历，遍历到一个节点时，将计数器k减1，代表已经遍历了一个节点。如果k值已经减为0，说明当前节点是二叉搜索树中的第K小节点，将该节点的值记录在变res中。
-
 ```Python
 def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
@@ -117,4 +116,28 @@ def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
                 if node.right:
                     queue.append(node.right)
         return root
+```
+
+## 200.岛屿数量
+**解题思路**：定义一个计数器`count`，用来记录岛屿的数量, 遍历二维网格中的每个元素，如果当前元素是陆地（值为1），则从该元素开始使用DFS遍历相邻的陆地，并将遍历到的陆地都标记为已访问（值为）,遍历完一个岛屿后，将计数器`count`加1,继续遍历其他元素，直到遍历完整个二维网格。最后返回计数器`count`，即为岛屿的数量。
+```Python
+def numIslands(self, grid: List[List[str]]) -> int:
+        def dfs(i, j):
+            if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) or grid[i][j] != '1':
+                return
+            grid[i][j] = '2'
+            dfs(i-1, j)
+            dfs(i+1, j)
+            dfs(i, j-1)
+            dfs(i, j+1)
+        
+        if not grid:
+            return 0
+        count = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] ==  "1":
+                    dfs(i, j)
+                    count += 1
+        return count
 ```
