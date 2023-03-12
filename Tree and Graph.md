@@ -95,3 +95,26 @@ def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
                     queue.append(node.right)
         return root
 ```
+
+## 230.二叉搜索树中第k小的元素
+**解题思路**：中序遍历，遍历到一个节点时，将计数器k减1，代表已经遍历了一个节点。如果k值已经减为0，说明当前节点是二叉搜索树中的第K小节点，将该节点的值记录在变res中。
+
+```Python
+def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root:
+            return root
+        queue = collections.deque()
+        queue.append(root)
+
+        while queue:
+            n = len(queue)
+            for i in range(len(queue)):
+               node = queue.popleft()
+                if i < len(queue) - 1:
+                    node.next = queue[0]
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        return root
+```
