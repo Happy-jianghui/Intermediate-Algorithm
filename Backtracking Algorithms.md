@@ -63,3 +63,22 @@ def letterCombinations(self, digits: str) -> List[str]:
         
         return res
 ```
+
+## 22.括号生成
+**解题思路**：定义一个字符串变量，用于保存正在生成的括号序列。定义两个计数器变量left和right，分别表示当前已经添加的左括号数和右括号数。如果left和right的值都等于n，将当前的括号序列添加到结果列表中。如果left小于n，则在当前括号序列后面加上左括号，并递归调用自身。如果在添加左括号之前，已经添加的左括号数大于右括号数，则在当前括号序列后面加上右括号，并递归调用自身。
+```Python
+def generateParenthesis(self, n: int) -> List[str]:
+        def dfs(path, left, right):
+            if left == n and right == n:
+                res.append(path)
+                return
+            if left < right:
+                return 
+            if left < n:
+                dfs(path+'(', left+1, right)
+            if right < n:
+                dfs(path+')', left, right+1)
+        res = []
+        dfs('', 0, 0)
+        return res
+```
