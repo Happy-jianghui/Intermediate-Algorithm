@@ -35,4 +35,31 @@ def letterCombinations(digits) -> str:
     return res
 
 print(letterCombinations('23'))
+
+#迭代
+def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        map = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+
+        res = ['']
+        for digit in digits:
+            letters = map[digit]
+            tmp_res = []
+            for letter in letters:
+                for s in res:
+                    tmp_res.append(s + letter)
+            res = tmp_res
+        
+        return res
 ```
