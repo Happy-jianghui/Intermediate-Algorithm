@@ -102,3 +102,24 @@ def permute(self, nums: List[int]) -> List[List[int]]:
         dfs(0, [], used)
         return res
 ```
+
+## 46.子集
+**解题思路**：初始化两个空数组 path 和 res，分别用于存储当前正在访问的子集和所有生成的子集。定义递归函数 recur(nums, i)，其中 nums 表示当前正在处理的数组，i 表示当前位置的索引。在递归函数中先将当前子集加入到结果数组 res 中。然后判断当前位置是否超出数组范围，如果是就直接返回。枚举当前位置后面的元素，将元素加入到当前子集 path 中，并递归处理下一个位置。递归回溯时，需要将刚才加入的元素从 path 中弹出，以便处理上一层的状态。在主函数中调用 recur(nums, 0)，从第一个位置开始枚举，得到所有的子集后返回结果数组 res。
+```Python
+def subsets(self, nums: List[int]) -> List[List[int]]:
+        path = []
+        res = []
+
+        def recur(nums, i):
+            res.append(path[:])
+            if i >= len(nums):
+                return
+
+            for j in range(i, len(nums)):
+                path.append(nums[j])
+                recur(nums, j+1)
+                path.pop()
+
+        recur(nums, 0)
+        return res
+```
