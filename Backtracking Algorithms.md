@@ -82,3 +82,23 @@ def generateParenthesis(self, n: int) -> List[str]:
         dfs('', 0, 0)
         return res
 ```
+
+## 46.全排列
+**解题思路**：这是一个用于求解给定列表 nums 的全排列的深度优先搜索(DFS)算法。算法中的 dfs() 是一个递归函数，它对每个未被标记为使用过的数字进行取数操作，并将其添加到当前路径中，然后递归调用 dfs() 函数继续处理下一层的数字。当深度等于给定列表的长度时，说明已经找到了一组全排列，将其添加到结果列表 res 中。在返回上一层之前，需要将该数字从当前路径 path 中弹出并将其标记为未使用过，以便在后续的搜索中可以重复使用。
+```Python
+def permute(self, nums: List[int]) -> List[List[int]]:
+        def dfs(depth, path, used):
+            if depth == len(nums):
+                res.append(path[:])
+            for i in range(len(nums)):
+                if not used[i]:
+                    used[i] = True
+                    path.append(nums[i])
+                    dfs(depth+1, path, used)
+                    used[i] = False
+                    path.pop()
+        res = []
+        used = [False for _ in range(len(nums))]
+        dfs(0, [], used)
+        return res
+```
