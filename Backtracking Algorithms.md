@@ -123,3 +123,32 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
         recur(nums, 0)
         return res
 ```
+
+## 79.单词搜索
+**解题思路**：回溯和递归，首先，从每个单元格开始搜索，如果匹配到相应的字符串就返回 True。如果没有找到相应的字符串，函数最终将返回 False。
+```Python
+def exist(self, board: List[List[str]], word: str) -> bool:
+        rows = len(board)
+        cols = len(board[0])
+        visited = [[False for _ in range(cols)] for _ in range(rows)]
+        
+        def dfs(row, col, i):
+            if i == len(word):
+                return True
+            
+            if row < 0 or row >= rows or col < 0 or col >= cols or visited[row][col] or board[row][col] != word[i]:
+                return False
+            
+            visited[row][col] = True
+            res = dfs(row-1, col, i+1) or dfs(row+1, col, i+1) or dfs(row, col-1, i+1) or dfs(row, col+1, i+1)
+            visited[row][col] = False
+            
+            return res
+        
+        for row in range(rows):
+            for col in range(cols):
+                if board[row][col] == word[0] and dfs(row, col, 0):
+                    return True
+                
+        return False
+```
