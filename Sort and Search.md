@@ -61,3 +61,18 @@ def findKthLargest(self, nums: List[int], k: int) -> int:
         nums[left], nums[index] = nums[index], nums[left]
         return index #此时所有index左侧的值都比nums[index]大， 所有右侧的值都比nums[index]小
 ```
+
+## 162.寻找峰值
+**解题思路**：二分查找
+```Python
+def findPeakElement(self, nums: List[int]) -> int:
+        n = len(nums)
+        left, right = 0, n-1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] > nums[mid + 1]:
+                right = mid
+            else:
+                left = mid + 1
+        return left
+```
