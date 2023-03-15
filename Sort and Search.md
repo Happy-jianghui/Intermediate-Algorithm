@@ -63,7 +63,7 @@ def findKthLargest(self, nums: List[int], k: int) -> int:
 ```
 
 ## 162.寻找峰值
-**解题思路**：二分查找
+**解题思路**：二分查找，每次可以通过比较中间位置 `mid` 和 `mid+1` 的值，来判断峰值在左侧还是右侧。如果 `nums[mid] > nums[mid+1]`，则峰值可能在左侧，否则峰值可能在右侧。
 ```Python
 def findPeakElement(self, nums: List[int]) -> int:
         n = len(nums)
