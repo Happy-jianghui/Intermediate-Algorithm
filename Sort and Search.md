@@ -17,7 +17,7 @@ def sortColors(self, nums: List[int]) -> None:
 ```
 
 ## 347.前K个高频元素
-**解题思路**：哈希表+桶排序
+**解题思路**：使用了Python中的内置函数sorted()来对哈希表中的项按值进行排序，并通过lambda函数指定按值进行排序，并设置reverse参数为True来实现降序排序。然后使用for循环从排序后的哈希表中取出前k个元素，并将其键加入结果列表中。
 ```Python
 def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         hash = {}
@@ -31,4 +31,33 @@ def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         for i in range(k):
             res.append(hash[i][0])
         return res
+```
+
+## 215.数组中的第K个最大元素
+**解题思路**：通过快速选择算法找到数组中的第k个最大元素
+```Python
+def findKthLargest(self, nums: List[int], k: int) -> int:
+        left, right, target = 0, len(nums) - 1, k - 1
+        while True:
+            pivotIndex  = self.partition(nums, left, right)
+            if pivotIndex  == target:
+                return nums[pivotIndex ]    
+            elif pivotIndex  > k: #要往左找
+                right = pivotIndex  - 1
+            elif pivotIndex  < k: #要往右找
+                left = pivotIndex  + 1
+                
+    def partition(self, nums, left, right):
+        import random
+        k = random.randint(left, right)
+        pivot = nums[k]
+        nums[left], nums[k] = nums[k], nums[left]
+        index = left
+        
+        for i in range(left + 1, right + 1):
+            if nums[i] > pivot:
+                index += 1
+                nums[i], nums[index] = nums[index], nums[i]
+        nums[left], nums[index] = nums[index], nums[left]
+        return index #此时所有index左侧的值都比nums[index]大， 所有右侧的值都比nums[index]小
 ```
