@@ -76,3 +76,23 @@ def findPeakElement(self, nums: List[int]) -> int:
                 left = mid + 1
         return left
 ```
+
+## 34.在排序数组中查找元素的第一个和最后一个位置
+**解题思路**：二分查找，通过维护左右指针来缩小查找范围，直到找到目标元素或者查找范围为空。在找到目标元素后，将左右指针都移动到中间位置，然后向左和向右查找与目标元素相同的元素，并更新左右指针，最终返回查找到的区间。如果查找范围为空，即左指针大于右指针，说明没有找到目标元素，返回[-1, -1]。
+def searchRange(self, nums: List[int], target: int) -> List[int]:
+        i, j = 0, len(nums) - 1
+        while i <= j:
+            mid = (i+j) // 2
+            if target == nums[mid]:
+                i = j = mid
+                while i >= 0 and nums[i] == target:
+                    i -= 1
+                while j <= len(nums) - 1 and nums[j] == target:
+                    j += 1
+                return [i+1, j-1]
+            elif target < nums[mid]:
+                j = mid - 1
+            else:
+                i = mid + 1
+        return [-1, -1]
+```
