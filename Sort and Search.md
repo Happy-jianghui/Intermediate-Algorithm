@@ -114,7 +114,7 @@ def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         return res
 ```
 
-## 56.合并区间
+## 33.搜索旋转排序数组
 **解题思路**：二分搜索算法，通过判断 mid 与左边界 i 或者右边界 j 的大小关系，来判断 mid 是在旋转点的左边还是右边，从而更新 i 和 j 的值，并重复这个过程，直到找到目标值或者整个数组遍历完毕。
 ```Python
 def search(self, nums: List[int], target: int) -> int:
@@ -134,4 +134,22 @@ def search(self, nums: List[int], target: int) -> int:
                 else:
                     j = mid - 1
         return -1
+```
+
+## 240.搜索二维矩阵 II
+**解题思路**：思路是Z 字形查找，从左下角或右上角开始搜索，比较当前元素与目标值的大小关系，根据大小关系决定向右或向上移动或向下或向左移动。如果找到目标值，返回True；否则，如果越界仍未找到目标值，则返回False。
+```Python
+def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        i, j = len(matrix) - 1,  0
+        m = len(matrix)
+        n = len(matrix[0])
+
+        while 0 <= i < m and 0 <= j < n:
+            if matrix[i][j] == target:
+                return True
+            elif matrix[i][j] > target:
+                i -= 1
+            else:
+                j += 1
+        return False
 ```
