@@ -97,3 +97,41 @@ def searchRange(self, nums: List[int], target: int) -> List[int]:
                 i = mid + 1
         return [-1, -1]
 ```
+
+
+## 56.合并区间
+**解题思路**：先将区间按照起始位置从小到大排序，然后从前往后遍历每个区间，判断是否和前一个区间重叠，如果不重叠就直接将该区间加入结果列表中，如果重叠就合并两个区间
+```Python
+def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key = lambda x:x[0])
+        res = []
+
+        for i in intervals:
+            if not res or res[-1][1] < i[0]:
+                res.append(i)
+            else:
+                res[-1][1] = max(res[-1][1], i[1])
+        return res
+```
+
+## 56.合并区间
+**解题思路**：二分搜索算法，通过判断 mid 与左边界 i 或者右边界 j 的大小关系，来判断 mid 是在旋转点的左边还是右边，从而更新 i 和 j 的值，并重复这个过程，直到找到目标值或者整个数组遍历完毕。
+```Python
+def search(self, nums: List[int], target: int) -> int:
+        i, j = 0, len(nums) - 1
+        while i <= j:
+            mid = (i + j) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[i] <= nums[mid]:
+                if nums[i] <= target < nums[mid]:
+                    j = mid - 1
+                else:
+                    i = mid + 1
+            else:
+                if nums[mid] < target <= nums[j]:
+                    i = mid + 1
+                else:
+                    j = mid - 1
+        return -1
+```
