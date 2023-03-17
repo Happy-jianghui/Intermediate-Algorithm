@@ -21,3 +21,17 @@ def uniquePaths(self, m: int, n: int) -> int:
                 dp[i][j] = dp[i][j-1] + dp[i-1][j]
         return dp[-1][-1]
 ```
+
+## 322.零钱兑换
+**解题思路**：动态规划思路，没看懂，先搬运大神的代码
+```Python
+def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = [float('inf')] * (amount+1)
+        dp[0] = 0
+        
+        for i in range(1, amount+1):
+            for coin in coins:
+                if coin <= i:
+                    dp[i] = min(dp[i], dp[i-coin] + 1)
+        return dp[amount] if dp[amount] != float('inf') else -1
+```
