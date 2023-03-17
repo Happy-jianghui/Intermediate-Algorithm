@@ -35,3 +35,21 @@ def coinChange(self, coins: List[int], amount: int) -> int:
                     dp[i] = min(dp[i], dp[i-coin] + 1)
         return dp[amount] if dp[amount] != float('inf') else -1
 ```
+
+## 300.最长递增子序列
+**解题思路**：二分查找+动态规划，没看懂，先搬运大神的代码
+```Python
+def lengthOfLIS(self, nums: [int]) -> int:
+        dp= [0] * len(nums)
+        res = 0
+        for num in nums:
+            i, j = 0, res
+            while i < j:
+                m = (i + j) // 2
+                if dp[m] < num: i = m + 1 # 如果要求非严格递增，将此行 '<' 改为 '<=' 即可。
+                else: j = m
+            dp[i] = num
+            if j == res: res += 1
+        return res
+```
+
