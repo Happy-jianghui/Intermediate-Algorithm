@@ -1,17 +1,23 @@
 # 动态规划
 ## 55.跳跃游戏
-**解题思路**：荷兰国旗问题，三指针，初始化三个指针i、j和cur，i指向开头位置，j指向结尾位置，cur从头开始遍历数组。当cur指针指向0时，交换cur和i指针所在位置的元素，同时将i和cur指针都向右移动一位。当cur指针指向2时，交换cur和j指针所在位置的元素，同时将j指针向左移动一位。当cur指针指向1时，不需要任何操作，直接将cur指针向右移动一位。遍历结束后，数组中的元素就已经按照红色、白色、蓝色的顺序排列好了
+**解题思路**：维护一个变量res，表示在当前位置之前，能够到达的最远距离。我们遍历数组nums，对于每一个位置i，如果res >= i，表示当前位置之前能够到达，再加上i位置上的跳跃步数num，就能够到达i+num位置。如果i+num的值比res还大，就更新res为i+num。最后判断res是否大于等于数组最后一个位置n-1即可。
 ```Python
-def sortColors(self, nums: List[int]) -> None:
-        i, cur, j = 0, 0, len(nums) - 1
-        while cur <= j:
-            if nums[cur] == 0:
-                nums[cur], nums[i] = nums[i], nums[cur]
-                cur += 1
-                i += 1
-            elif nums[cur] == 2:
-                nums[cur], nums[j] = nums[j], nums[cur]
-                j -= 1
-            else:
-                cur += 1
+def canJump(self, nums: List[int]) -> bool:
+        res = 0
+        for i, num in enumerate(nums):
+            if res >= i and i + num > res:
+                res = i + num
+        return res >= i
+```
+
+
+## 62.不同路径
+**解题思路**：动态规划思路，初始化值为1，可以省略赋值，上方的值+左方的值 = 当前的值
+```Python
+def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[1 for _ in range(n)] for _ in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i][j-1] + dp[i-1][j]
+        return dp[-1][-1]
 ```
