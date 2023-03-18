@@ -66,3 +66,18 @@ def myPow(self, x: float, n: int) -> float:
             n //= 2
         return res
 ```
+
+## 69.x的平方根
+**解题思路**：二分查找法来求解平方根的函数。通过设定左右边界i和j，开始进行二分搜索，每次将中间值(mid)计算出来，并将其平方与x进行比较。如果mid的平方小于等于x，则说明mid可能是答案，于是将mid赋值给ans并继续向右侧搜索。如果mid的平方大于x，则说明mid不符合要求，需要向左侧搜索。最终当i > j时，搜索结束，返回ans作为结果。
+```Python
+def mySqrt(self, x: int) -> int:
+        i, j, ans = 0, x, -1
+        while i <= j:
+            mid = (i + j) // 2
+            if mid * mid <= x:
+                ans = mid
+                i = mid + 1
+            else:
+                j = mid - 1
+        return ans
+```
