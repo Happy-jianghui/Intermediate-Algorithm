@@ -49,3 +49,40 @@ class Codec:
             i += 1
         return root
 ```
+
+## 380. O(1) 时间插入、删除和获取随机元素
+**解题思路**：哈希表和数组，使用一个哈希表来存储每个元素在数组中的下标，也就是将元素值作为键，将下标作为值存储在哈希表中。使用一个数组来存储所有元素，以便支持 O(1) 时间的随机访问。插入元素时，在数组末尾添加新元素，并在哈希表中记录该元素的下标。删除元素时，先从哈希表中获取要删除元素在数组中的下标，将该元素与数组末尾元素交换位置，然后删除末尾元素并更新哈希表中被替换元素的下标。获取随机元素时，生成一个随机数作为数组下标，直接访问该元素即可。
+```Python
+class RandomizedSet:
+
+    def __init__(self):
+        self.nums = []
+        self.hash = {}
+
+    def insert(self, val: int) -> bool:
+        if val in self.hash:
+            return False
+        self.hash[val] = len(self.nums)
+        self.nums.append(val)
+        return True
+
+    def remove(self, val: int) -> bool:
+        if val not in self.hash:
+            return False
+        index = self.hash[val]
+        self.nums[index] = self.nums[-1]
+        self.hash[self.nums[index]] = index
+        self.nums.pop()
+        del self.hash[val]
+        return True
+
+    def getRandom(self) -> int:
+        return choice(self.nums)
+
+
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()
+```
