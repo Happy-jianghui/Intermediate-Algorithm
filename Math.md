@@ -81,3 +81,23 @@ def mySqrt(self, x: int) -> int:
                 j = mid - 1
         return ans
 ```
+
+## 29.两数相除
+**解题思路**：位运算没看懂，先搬运，后面再研究
+```Python
+def divide(self, dividend: int, divisor: int) -> int:
+        if divisor == 0:
+            return 2**31 - 1
+        if dividend == -2**31 and divisor == -1:
+            return 2**31 - 1
+        
+        a = abs(dividend)
+        b = abs(divisor)
+        res = 0
+        for i in range(31, -1, -1):
+            if (a >> i) >= b:
+                res += 1 << i
+                a -= b << i
+        return res if (dividend > 0) == (divisor > 0) else -res
+```
+
